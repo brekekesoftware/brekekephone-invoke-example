@@ -11,22 +11,21 @@ import {
 import React, { useEffect, useState } from 'react'
 import qs from 'qs'
 import { Icon } from './Icon'
+import { accountParams } from './vars'
 
 export const Control = () => {
   const [visible, setVisible] = useState(false)
 
-  const linkToBrekeke = async () => {
-    const params = qs.stringify({
-      host: 'dev01.brekeke.com',
-      port: 8443,
-      tenant: 'nam',
-      user: 'nam01',
-      password: 123,
-      action: 'invoke-example'
-    })
+  const linkToBrekeke = async (isCallTo = false) => {
+    const finalParams = { ...accountParams } as any
+    if (isCallTo) {
+      finalParams.callTo = 'nam05'
+    }
     try {
       setVisible(false)
-      await Linking.openURL(`brekekeapp_phonedev://open?${params}`)
+      await Linking.openURL(
+        `brekekeapp_phonedev://open?${qs.stringify(finalParams)}`,
+      )
     } catch (e) {
       console.log('#Duy Phan console', e)
     }
@@ -60,7 +59,10 @@ export const Control = () => {
             </TouchableOpacity>
             <Text style={styles.modalTitle}>Please choose a option</Text>
             <View style={styles.optionView}>
-              <TouchableOpacity style={styles.optionBox}>
+              <TouchableOpacity
+                style={styles.optionBox}
+                onPress={() => linkToBrekeke(true)}
+              >
                 <View style={styles.optionIcon}>
                   <Icon
                     size={30}
@@ -71,7 +73,7 @@ export const Control = () => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.optionBox}
-                onPress={linkToBrekeke}
+                onPress={() => linkToBrekeke()}
               >
                 <View style={styles.optionIcon}>
                   <Icon
