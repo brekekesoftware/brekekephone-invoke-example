@@ -1,10 +1,13 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+This is the BrekekePhone Invoke Example app[**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+
+# Requirement
+ - Can allow this app invoked by the BrekekePhone app and vice versa. Target to handle flow calls between both.
 
 # Getting Started
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
-## Step 1: Start the Metro Server
+## 1: Start the Metro Server
 
 First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
 
@@ -18,11 +21,9 @@ npm start
 yarn start
 ```
 
-## Step 2: Start your Application
+## 2: Start your Application
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
+Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ app:
 
 ```bash
 # using npm
@@ -32,48 +33,50 @@ npm run android
 yarn android
 ```
 
-### For iOS
+Because we need a setup to invoke between two apps. So you need to run dev on the device with another port (The default is 8081):
 
 ```bash
 # using npm
-npm run ios
+RCT_METRO_PORT=PORT npm run android --port PORT
 
 # OR using Yarn
-yarn ios
+RCT_METRO_PORT=PORT yarn android --port PORT
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+## 3: Apply UI to handle invoke
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+- The UI have a button. After press it, will show `Modal` have 2 options:
+   - `Hotel Reception`: This option will link to the BrekekePhone app and call to hotel reception.
+   - `Another`: This option will link to the BrekekePhone app and open the keypad to type the number to call.
+- Install package `react-native-svg` and write a component common to use icons SVG.
 
-## Step 3: Modifying your App
+# Setup invoke app for Android
 
-Now that you have successfully run the app, let's modify it.
+## 1. First, this app needs to enable deep links and add an intent filter for incoming links (We set this to the BrekekePhone app can be linked to this app)
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+In `AndroidManifest.xml` file, add `<intent-filter>` tag contains these elements and attribute values:
+- `<action>`: This tag is used to point out which action will trigger an Intent. We will use `android.intent.action.VIEW` to define an action to view app.
+- `<category>`: A string containing additional information about the kind of component that should handle the intent. We will use `android.intent.category.DEFAULT` to receive implicit intents.
+- `<data>`: This tag provide attributes to define type of data of a URI. We will use `android:scheme` and `android:host` to define. The final URI will have the format: `<scheme>://<host>`, it is used with `Linking`.
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+You can see more about intents filters at:
+- https://developer.android.com/guide/components/intents-filters
+- https://developer.android.com/training/app-links/deep-linking
 
-## Congratulations! :tada:
+## 2. Invoke this app from BrekekePhone app and vice versa
 
-You've successfully run and modified your React Native App. :partying_face:
+- Use `Linking.canOpenURL(url)` to check URL can be handled. If it return `true`, you can invoke app with the `url`.
+- Use ```Linking.openUrl(`brekeke_invoke_dev:open?${params}`)``` to invoke this app, in which:
+   - The `brekeke_invoke_dev` is the attribute `android:scheme` in tag `<data>` in `Androidmanifest.xml` file.
+   - The `open` is the attribute `android:host` in tag `<data>` in `Androidmanifest.xml` file.
+   - The variable `params` is data stringtify by `qs.stringify()` to send to this app you need.
 
-### Now what?
+## 3. Handling Deep Links to receive data from BrekekePhone app
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+ - Use `Linking.addEventListener('url', callback)` when the app is foregrounded, the app is already open to get data from `callback`.
+ - Use `Linking.getInitialURL()` when app is not already open.
+ - Install `qs` package usage query string parsing and stringifying.
+ - Use `qs.parse()` to parse params from the `url`.
 
-# Troubleshooting
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+You can see all about `Linking` at https://reactnative.dev/docs/linking
