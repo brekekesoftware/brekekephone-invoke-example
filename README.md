@@ -1,7 +1,8 @@
-This is the BrekekePhone Invoke Example app[**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+This is the BrekekePhone Invoke Example app [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Requirement
  - Can allow this app invoked by the BrekekePhone app and vice versa. Target to handle flow calls between both.
+
 
 # Getting Started
 
@@ -46,13 +47,15 @@ RCT_METRO_PORT=PORT yarn android --port PORT
 ## 3: Apply UI to handle invoke
 
 - The UI have a button. After press it, will show `Modal` have 2 options:
-   - `Hotel Reception`: This option will link to the BrekekePhone app and call to hotel reception.
-   - `Another`: This option will link to the BrekekePhone app and open the keypad to type the number to call.
+   - `Make call to nam05`: This option will invoke to the BrekekePhone app and call to `nam05` contact.
+   - `Open keypad`: This option will link to the BrekekePhone app and open the keypad to type the number to call.
 - Install package `react-native-svg` and write a component common to use icons SVG.
 
 # Setup invoke app for Android
 
-## 1. First, this app needs to enable deep links and add an intent filter for incoming links (We set this to the BrekekePhone app can be linked to this app)
+## 1. First, this app needs to enable deep links and add an intent filter for incoming links
+
+### Android
 
 In `AndroidManifest.xml` file, add `<intent-filter>` tag contains these elements and attribute values:
 - `<action>`: This tag is used to point out which action will trigger an Intent. We will use `android.intent.action.VIEW` to define an action to view app.
