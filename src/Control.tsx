@@ -10,7 +10,7 @@ import {
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import qs from 'qs'
-import { Icon } from './Icon'
+import { Icon } from './components/Icon'
 import { accountParams } from './vars'
 
 export const Control = () => {
@@ -27,7 +27,7 @@ export const Control = () => {
         `brekekeapp_phonedev://open?${qs.stringify(finalParams)}`,
       )
     } catch (e) {
-      console.log('#Duy Phan console', e)
+      console.log('Invoke to BrekekePhone app error', e)
     }
   }
 
@@ -125,18 +125,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
+   
   },
   modalContent: {
-    width: 420,
+    width: 280,
     height: 240,
     backgroundColor: 'rgb(55,55,55)',
     position: 'relative',
+    borderRadius: 10
   },
   modalTitle: {
     textAlign: 'center',
     color: 'rgb(237, 228, 181)',
-    marginTop: 20,
-    fontSize: 18,
+    marginTop: 10,
+    fontSize: 15,
   },
   optionView: {
     flexDirection: 'row',
@@ -146,8 +148,8 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   optionBox: {
-    width: 110,
-    height: 110,
+    width: 85,
+    height: 85,
     borderRadius: 12,
     justifyContent: 'center',
     gap: 5,
@@ -156,12 +158,13 @@ const styles = StyleSheet.create({
   },
   buttonClose: {
     position: 'absolute',
-    top: 5,
-    right: 5,
+    top: 10,
+    right: 10,
     zIndex: 1,
   },
   optionIcon: { width: 32, height: 32 },
   optionText: {
-    textAlign: 'center'
+    textAlign: 'center',
+    fontSize: 12
   }
 })
