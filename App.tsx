@@ -6,10 +6,7 @@
  */
 
 import React from 'react'
-import {
-  AppState,
-  Linking,
-} from 'react-native'
+import { AppState, Linking, SafeAreaView } from 'react-native'
 import { Control } from './src/Control'
 import { parse } from 'qs'
 
@@ -29,7 +26,11 @@ AppState.addEventListener('change', async () => {
 })
 
 function App(): React.JSX.Element {
-  return <Control />
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <Control />
+    </SafeAreaView>
+  )
 }
 
 export default App
