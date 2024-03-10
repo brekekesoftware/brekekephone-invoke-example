@@ -14,4 +14,4 @@ module.exports = {
   insertPragma: false,
   endOfLine: 'lf',
   htmlWhitespaceSensitivity: 'ignore',
-};
+}

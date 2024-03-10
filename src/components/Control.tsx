@@ -1,6 +1,4 @@
 import {
-  Alert,
-  Button,
   Linking,
   Modal,
   StyleSheet,
@@ -8,10 +6,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import qs from 'qs'
-import { Icon } from './components/Icon'
-import { accountParams } from './vars'
+import { Icon } from './Icon'
+import { accountParams } from '../config'
 
 export const Control = () => {
   const [visible, setVisible] = useState(false)
@@ -24,7 +22,7 @@ export const Control = () => {
     try {
       setVisible(false)
       await Linking.openURL(
-        `brekekeapp_phonedev://open?${qs.stringify(finalParams)}`,
+        `brekekephonedev://open?${qs.stringify(finalParams)}`,
       )
     } catch (e) {
       console.log('Invoke to BrekekePhone app error', e)
@@ -125,14 +123,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-   
   },
   modalContent: {
     width: 280,
     height: 240,
     backgroundColor: 'rgb(55,55,55)',
     position: 'relative',
-    borderRadius: 10
+    borderRadius: 10,
   },
   modalTitle: {
     textAlign: 'center',
@@ -165,6 +162,6 @@ const styles = StyleSheet.create({
   optionIcon: { width: 32, height: 32 },
   optionText: {
     textAlign: 'center',
-    fontSize: 12
-  }
+    fontSize: 12,
+  },
 })

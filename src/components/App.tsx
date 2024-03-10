@@ -7,7 +7,7 @@
 
 import React from 'react'
 import { AppState, Linking, SafeAreaView } from 'react-native'
-import { Control } from './src/Control'
+import { Control } from './Control'
 import { parse } from 'qs'
 
 AppState.addEventListener('change', async () => {

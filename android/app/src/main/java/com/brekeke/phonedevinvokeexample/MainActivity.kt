@@ -1,4 +1,4 @@
-package com.brekekephoneinvokeexample
+package com.brekeke.phonedevinvokeexample
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

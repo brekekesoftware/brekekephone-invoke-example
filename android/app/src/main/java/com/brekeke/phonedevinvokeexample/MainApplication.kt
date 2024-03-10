@@ -1,4 +1,4 @@
-package com.brekekephoneinvokeexample
+package com.brekeke.phonedevinvokeexample
 
 import android.app.Application
 import com.facebook.react.PackageList
