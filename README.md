@@ -113,7 +113,7 @@ In `/android/app/main/AndroidManifest.xml` file, add `<intent-filter>` tag conta
 ## 2. Invoke to BrekekePhone app
 
 - Use ``Linking.openUrl(`brekekephonedev://open?${params}`)`` to invoke this app, in which:
-  - The `brekeke_invoke_dev` is the attribute `android:scheme` in tag `<data>` in `Androidmanifest.xml` file.
+  - The `brekekephonedev` is the attribute `android:scheme` in tag `<data>` in `Androidmanifest.xml` file.
   - The `open` is the attribute `android:host` in tag `<data>` in `Androidmanifest.xml` file.
   - The variable `params` is data stringified by `qs.stringify()` to send to the BrekekePhone app and contains the account info to make auto-login.
 
