@@ -13,7 +13,7 @@ export const Dropdown = (props: DropdownProps) => {
       open={open}
       setOpen={setOpen}
       {...props}
-      listMode='SCROLLVIEW'
+      listMode={'SCROLLVIEW'}
     />
   )
 }

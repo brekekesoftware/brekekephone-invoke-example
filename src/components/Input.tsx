@@ -4,32 +4,46 @@ import { Dropdown } from './Dropdown'
 import { ItemType } from 'react-native-dropdown-picker'
 
 type InputProps = {
-  title: string
+  title?: string
   k: string
   type?: 'input' | 'dropdown'
   items: ItemType<any>[]
 } & TextInputProps
 
 export const Input = forwardRef(
-  ({ title, k, type = 'input', items = [], ...rest }: InputProps, ref) => {
-    const [value, setValue] = useState('')
+  (
+    {
+      title,
+      k,
+      type = 'input',
+      items = [],
+      style,
+      value: vInput,
+      ...rest
+    }: InputProps,
+    ref,
+  ) => {
+    const [value, setValue] = useState(vInput)
 
     useImperativeHandle(ref, () => ({
       getValue: () => ({
         key: k,
         value,
       }),
+      reset: () => {
+        setValue('')
+      },
     }))
 
     return (
       <View style={styles.container}>
-        <Text>{title}</Text>
+        {!!title && <Text>{title}</Text>}
         {type === 'input' ? (
           <TextInput
-            value={value}
-            style={[styles.input, rest.style]}
-            onChangeText={t => setValue(t)}
             {...rest}
+            value={value}
+            style={[styles.input, style]}
+            onChangeText={t => setValue(t)}
           />
         ) : (
           <Dropdown

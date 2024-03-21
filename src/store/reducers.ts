@@ -8,6 +8,7 @@ export const settingsSlice = createSlice({
   reducers: {
     updateDestination: (state, action: PayloadAction<string>) => {
       state.destination = action.payload
+      return state
     },
   },
 })
