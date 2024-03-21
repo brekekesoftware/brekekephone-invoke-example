@@ -9,6 +9,10 @@ import React from 'react'
 import { AppState, Linking, SafeAreaView, StyleSheet } from 'react-native'
 import { Control } from './Control'
 import { parse } from 'qs'
+import { PersistGate } from 'redux-persist/integration/react'
+import { Provider } from 'react-redux'
+
+import configureStore from '../store/configStore'
 
 AppState.addEventListener('change', async () => {
   if (AppState.currentState !== 'active') {
@@ -27,9 +31,13 @@ AppState.addEventListener('change', async () => {
 
 function App(): React.JSX.Element {
   return (
-    <SafeAreaView style={styles.main}>
-      <Control />
-    </SafeAreaView>
+    <Provider store={configureStore.store}>
+      <PersistGate loading={null} persistor={configureStore.persistor}>
+        <SafeAreaView style={styles.main}>
+          <Control />
+        </SafeAreaView>
+      </PersistGate>
+    </Provider>
   )
 }
 
