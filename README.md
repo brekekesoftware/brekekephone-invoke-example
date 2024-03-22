@@ -57,6 +57,9 @@ yarn install
 - `/src`: Contains the source code of the React Native app.
   - `/components`: Reusable React components.
   - `/config.ts`: Contains const account to make auto login to the BrekekePhone app.
+  - `/icons.ts`: Contains icons used in the app.
+  - `/colors.ts`: Contains colors common used in the app.
+  - `/store`: Contains the configs stored to save data storage.
 - `/android` and `/ios`: Platform-specific files for Android and iOS.
 
 ## Development
@@ -139,12 +142,13 @@ In `/android/app/main/AndroidManifest.xml` file, add `<intent-filter>` tag conta
 ## Flow call about app
 
 - The main UI has a button `Call`. After pressing it, will show a pop-up that has 2 options:
-  - `Make call to nam05`:
-    - This option will invoke the BrekekePhone app and call to `nam05` contact.
-    - Need to run app BrekekePhone app with another device and login account `nam05` to receive calls.
+  - `Make call`:
+    - This option will invoke the BrekekePhone app and call to the destination number defined in Settings.
+    - If not exist a destination number, this option will disabled.
+    - To change the destination number, please press on icon "Settings", type destination and press icon "Save".
     - After the end call, will back to this app.
   - `Open keypad`:
     - This option will link to the BrekekePhone app and open the keypad to type the number to call.
     - After pressing a number phone and pressing the button `Call`.
-    - Need login account `nam01` with option `PHONE` is Phone 2 -> 4 to receive call.
-- Default, 2 both options will send params to make auto-login with account `dev01.brekeke.com:8443 nam01`.
+    - Need login a account with option `PHONE` is Phone 2 -> 4 to receive call.
+- To make call need login first on the BrekekePhone app.
