@@ -9,7 +9,6 @@ import {
 import React, { useRef, useState } from 'react'
 import qs from 'qs'
 import { Icon } from './Icon'
-import { accountParams } from '../config'
 import { Input } from './Input'
 import { useSelector } from 'react-redux'
 import { RootState, useAppDispatch } from '../store/configStore'
@@ -34,14 +33,14 @@ export const Call = () => {
   const dispatch = useAppDispatch()
 
   const linkToBrekeke = async (isCallTo = false) => {
-    const finalParams = { ...accountParams } as any
+    const finalParams = { action: 'invoke-example' } as any
     if (isCallTo) {
       finalParams.callTo = destination
     }
     try {
       setVisible(false)
       await Linking.openURL(
-        `brekekephonedev://open?${qs.stringify(finalParams)}`,
+        `brekekeexphonedev://open?${qs.stringify(finalParams)}`,
       )
     } catch (e) {
       console.log('Invoke to BrekekePhone app error', e)
@@ -137,6 +136,7 @@ export const Call = () => {
                     <Icon size={25} path={SettingsIcon} color={colors.main} />
                   </View>
                 </TouchableOpacity>
+                <Text style={{ color: colors.main }}>Settings</Text>
               </View>
             )}
             {open && (
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     width: 280,
-    minHeight: 240,
+    minHeight: 255,
     maxHeight: 400,
     height: 'auto',
     backgroundColor: 'rgb(55,55,55)',
@@ -246,6 +246,7 @@ const styles = StyleSheet.create({
   },
   settings: {
     justifyContent: 'center',
+    alignItems: 'center',
     height: 30,
   },
   settingsView: {

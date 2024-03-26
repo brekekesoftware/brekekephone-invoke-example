@@ -10,9 +10,9 @@ export const Dropdown = (props: DropdownProps) => {
 
   return (
     <DropDownPicker
+      {...(props as DropDownPickerProps<any>)}
       open={open}
       setOpen={setOpen}
-      {...props}
       listMode={'SCROLLVIEW'}
     />
   )
