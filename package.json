@@ -1,6 +1,6 @@
 {
   "name": "brekekephone-invoke-example",
-  "version": "0.0.1",
+  "version": "2.14.1",
   "private": true,
   "scripts": {
     "start": "react-native start",
